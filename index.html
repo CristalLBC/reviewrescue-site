@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReviewRescue — Someone finally answering your Google reviews</title>
+<meta name="description" content="Done-for-you Google review replies, Google Business posts and review requests for Long Beach and South Bay businesses. Free audit first — you approve every reply by email.">
+<style>
+  :root{
+    --ink:#0d1220; --ink2:#141c2f; --card:#18213a; --line:#25314f;
+    --text:#eaf0ff; --dim:#9fb0d0; --hot:#ff8a3d; --hot2:#ffb066; --ok:#3ddc97;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--ink); color:var(--text);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+  .btn{
+    display:inline-block;padding:16px 26px;border-radius:12px;font-weight:700;font-size:17px;
+    text-decoration:none;transition:transform .12s ease, box-shadow .12s ease;border:0;cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-main{background:linear-gradient(180deg,var(--hot2),var(--hot));color:#231000;box-shadow:0 10px 30px rgba(255,138,61,.28)}
+  .btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn-small{padding:11px 18px;font-size:15px;border-radius:10px}
+
+  /* hero */
+  header{background:
+      radial-gradient(1000px 420px at 82% -12%, rgba(255,138,61,.20), transparent 60%),
+      radial-gradient(760px 380px at 8% 6%, rgba(61,220,151,.10), transparent 60%),
+      var(--ink);
+    border-bottom:1px solid var(--line); padding:26px 0 74px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+  .brand .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(150deg,var(--hot2),var(--hot));display:inline-block}
+  .brand small{display:block;font-weight:500;color:var(--dim);letter-spacing:0}
+  nav.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:62px}
+  nav.top .links{display:flex;gap:22px;color:var(--dim);font-size:15px}
+  @media(max-width:720px){nav.top .links{display:none}}
+  h1{font-size:clamp(34px,5.4vw,60px);line-height:1.06;margin:0 0 18px;letter-spacing:-1px}
+  h1 .hl{color:var(--hot)}
+  .sub{font-size:clamp(17px,2.1vw,21px);color:var(--dim);max-width:660px;margin:0 0 30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .fineprint{color:var(--dim);font-size:14px;margin-top:16px}
+  .triple{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;color:var(--dim);font-size:15px}
+  @media(max-width:860px){.triple{grid-template-columns:1fr;gap:16px}}
+  .triple b{color:var(--text);display:block;font-size:17px}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(26px,3.4vw,38px);line-height:1.15;margin:0 0 14px;letter-spacing:-.5px}
+  .lead{color:var(--dim);max-width:760px;font-size:18px;margin:0 0 34px}
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.g3,.g2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .card h3{margin:0 0 10px;font-size:19px}
+  .card p{margin:0;color:var(--dim)}
+  .num{display:inline-flex;width:34px;height:34px;border-radius:10px;background:rgba(255,138,61,.14);
+       color:var(--hot);font-weight:800;align-items:center;justify-content:center;margin-bottom:12px}
+  ul.check{list-style:none;padding:0;margin:0}
+  ul.check li{padding:9px 0 9px 32px;position:relative;color:var(--dim)}
+  ul.check li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+  ul.check li b{color:var(--text)}
+
+  .price{display:grid;gap:18px;grid-template-columns:1.15fr .85fr}
+  @media(max-width:860px){.price{grid-template-columns:1fr}}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+  .plan.hero-plan{border:1.5px solid var(--hot);box-shadow:0 18px 50px rgba(255,138,61,.14)}
+  .plan .amt{font-size:44px;font-weight:800;letter-spacing:-1px;margin:6px 0 2px}
+  .plan .amt span{font-size:16px;font-weight:600;color:var(--dim);letter-spacing:0}
+  .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+       color:#231000;background:var(--hot);border-radius:999px;padding:4px 11px;margin-bottom:12px}
+
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+  summary{cursor:pointer;font-weight:700;font-size:17px}
+  details p{color:var(--dim);margin:12px 0 0}
+
+  footer{padding:54px 0 74px;color:var(--dim);font-size:15px}
+  footer a{color:var(--text)}
+  .kicker{color:var(--hot);font-weight:800;letter-spacing:.6px;text-transform:uppercase;font-size:13px;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav class="top">
+      <div class="brand"><span class="dot"></span><span>ReviewRescue<small>Long Beach &amp; the South Bay</small></span></div>
+      <div class="links">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">Questions</a>
+        <a href="#start">Free audit</a>
+      </div>
+    </nav>
+
+    <div class="kicker">Done-for-you Google reviews</div>
+    <h1>Someone finally <span class="hl">answering</span> your Google reviews.</h1>
+    <p class="sub">
+      Every review on your Google listing gets a real reply — written in your voice, posted for you,
+      and you approve each one by replying to an email. No apps to learn, no passwords to hand over,
+      no reviews bought or faked. Ever.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-main" href="mailto:cristal@dfyai.online?subject=Free%20review%20audit%20please&body=Business%20name%3A%0AGoogle%20listing%20link%20(if%20you%20have%20it)%3A%0ABest%20phone%3A%0A%0AAnything%20you%20want%20me%20to%20know%3A">Email me my free audit</a>
+      <a class="btn btn-ghost" href="tel:+15627456595">Call or text (562) 745-6595</a>
+    </div>
+    <p class="fineprint">
+      The audit is free and there's no pitch attached: I read your listing, write replies to your
+      recent reviews, and send them to you. If you like them, we talk. If not, delete the email.
+    </p>
+
+    <div class="triple">
+      <div><b>Free to look</b>Real drafted replies to your own reviews, before you pay anything.</div>
+      <div><b>You approve everything</b>Nothing posts to your listing without your yes.</div>
+      <div><b>Cancel any time</b>No contract, no setup fee to start, no surprises.</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>What an unanswered review actually costs you</h2>
+    <p class="lead">
+      Your next customer reads the reviews before they call. When the newest ones sit there with no
+      reply, that silence reads like nobody's home — and Google treats an active listing more kindly
+      than a dormant one. Most local businesses aren't ignoring reviews on purpose. They're busy
+      running the business, and replying is the chore that never gets done.
+    </p>
+    <div class="grid g3">
+      <div class="card">
+        <h3>A bad review, unanswered</h3>
+        <p>One 2-star with no reply, sitting in public for months, costs more than the complaint did.</p>
+      </div>
+      <div class="card">
+        <h3>Good reviews, unthanked</h3>
+        <p>Your happiest customers get silence back. That's the cheapest relationship-building you'll ever skip.</p>
+      </div>
+      <div class="card">
+        <h3>A dormant listing</h3>
+        <p>No posts, no replies, no activity. Google has less reason to show you to the people searching near you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works — three steps, about ten minutes of your time</h2>
+    <p class="lead">You stay the owner. I stay the person who does the writing.</p>
+    <div class="grid g3">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Free audit</h3>
+        <p>Email me your business name. I read your Google listing and send back drafted replies to
+           your recent reviews plus four ready-to-post Google updates. No charge, no card, no call.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>You say go</h3>
+        <p>Like what you read? Add me as a manager on your Google Business Profile (you can revoke it
+           any time), or paste the replies in yourself — your call.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>I keep it up</h3>
+        <p>Every new review gets a reply, usually within a day. Four Google posts a month go up so the
+           listing looks alive. You get a short monthly summary of what customers are telling you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <h2>Straight pricing</h2>
+    <p class="lead">One monthly price, everything included, cancel whenever you like.</p>
+    <div class="price">
+      <div class="plan hero-plan">
+        <span class="tag">Most businesses start here</span>
+        <h3 style="margin:0;font-size:22px">Review Rescue — monthly</h3>
+        <div class="amt">$149<span> / month</span></div>
+        <p style="color:var(--dim);margin:6px 0 18px">All new reviews answered, all month.</p>
+        <ul class="check">
+          <li><b>Every new review replied to</b> — 1-star to 5-star, in your voice, normally within 24 hours</li>
+          <li><b>4 Google Business Profile posts a month</b> — seasonal tips, service highlights, offers</li>
+          <li><b>A monthly summary</b> — what people praised, what they complained about, what to fix</li>
+          <li><b>You approve by email</b> — one word back and it goes up</li>
+          <li><b>Cancel any time</b> — no contract</li>
+        </ul>
+        <p style="margin-top:20px">
+          <a class="btn btn-main" href="mailto:cristal@dfyai.online?subject=I%20want%20ReviewRescue%20for%20my%20business&body=Business%20name%3A%0AGoogle%20listing%20link%3A%0AI%27d%20like%20to%20start%2C%20please%20send%20the%20signup%20link.">Start with the free audit</a>
+        </p>
+        <p class="fineprint">Or pay and get going right now — <a href="#start">the signup link</a> is at the bottom.</p>
+      </div>
+
+      <div class="plan">
+        <h3 style="margin:0;font-size:20px">Backlog cleanup</h3>
+        <div class="amt">$99<span> / one time</span></div>
+        <p style="color:var(--dim);margin:6px 0 18px">
+          Years of old reviews, still unanswered.
+        </p>
+        <ul class="check">
+          <li><b>Up to 25 older reviews</b> answered in one pass</li>
+          <li><b>Oldest and worst first</b> — the ones customers actually scroll to</li>
+          <li><b>Add it once</b>, then the monthly plan keeps you current</li>
+        </ul>
+        <p class="fineprint" style="margin-top:18px">
+          Ask for it in the same email — it's cheaper to do it in one pass than pick away at it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What I will never do</h2>
+    <p class="lead">
+      This part matters more than the price. Review services have a bad reputation because too many
+      of them break Google's rules and get the client's listing punished for it.
+    </p>
+    <div class="grid g3">
+      <div class="card">
+        <h3>No bought or fake reviews</h3>
+        <p>Every review we reply to was left by a real customer. I never write reviews, never buy them,
+           and never swap them.</p>
+      </div>
+      <div class="card">
+        <h3>No paying for praise</h3>
+        <p>Nothing is ever offered — no discount, no gift, no comp — in exchange for a review. That's
+           against Google's rules and it lands on your listing, not on me.</p>
+      </div>
+      <div class="card">
+        <h3>No cherry-picking</h3>
+        <p>If I ask your past customers for reviews, I ask <em>all</em> of them — not just the happy
+           ones. Selective asking is "review gating" and it's exactly what gets listings penalised.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Not enough people leaving reviews?</h2>
+    <p class="lead">
+      A different problem, and the easier one to fix. The customers you served last year loved you —
+      they were just never asked. I can run that for you too: a short, friendly ask sent to your past
+      customers with a direct link to your Google review page. One tap and they're done.
+    </p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Include it and I'll send them</h3>
+        <p>You hand me the list — a spreadsheet, or even your booking emails — and I run the asks and
+           tell you how many new reviews came in.</p>
+      </div>
+      <div class="card">
+        <h3>Or I'll hand you the words</h3>
+        <p>Some owners prefer to send it themselves. I'll write the message and give you the link; you
+           paste it into your own email or text thread. Texts include a STOP opt-out, because that's
+           the law.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Fair questions</h2>
+
+    <details open>
+      <summary>Do I have to give you my Google password?</summary>
+      <p>Never. You add me as a manager on your Google Business Profile — you can revoke it in two
+         clicks — or you paste the replies in yourself from the file I send you. Either way works, and
+         plenty of owners choose the second one.</p>
+    </details>
+
+    <details>
+      <summary>Is replying to reviews actually allowed?</summary>
+      <p>Yes — replying to real reviews is encouraged and Google says so plainly. What's against the
+         rules is buying reviews, offering something in exchange for them, or only asking your happy
+         customers. We do none of that.</p>
+    </details>
+
+    <details>
+      <summary>What if a review is wrong or unfair?</summary>
+      <p>We stay calm, we don't argue in public, and we never admit legal fault. We thank them,
+         address the specific issue, and move the conversation offline to your phone. A well-handled
+         bad review earns more trust than a perfect record does.</p>
+    </details>
+
+    <details>
+      <summary>How fast is it?</summary>
+      <p>Your audit comes back the same day you ask. Once you're on the monthly plan, new reviews get
+         a drafted reply within 24 hours, and it goes up as soon as you approve it.</p>
+    </details>
+
+    <details>
+      <summary>What if I'm not in Long Beach?</summary>
+      <p>Long Beach and the South Bay is where I work in person, but the service runs entirely by
+         email — plenty of clients are further out. Ask anyway.</p>
+    </details>
+
+    <details>
+      <summary>What does it cost to find out if this is any good?</summary>
+      <p>Nothing. The audit is the free sample: your real reviews, my real replies. You decide after
+         you've read them.</p>
+    </details>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <h2>Start here</h2>
+    <p class="lead">
+      Email me your business name — that's the whole form. If you'd rather just pay and get moving,
+      the signup link is below.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-main" href="mailto:cristal@dfyai.online?subject=Free%20review%20audit%20please&body=Business%20name%3A%0AGoogle%20listing%20link%20(if%20you%20have%20it)%3A%0ABest%20phone%3A">Email me my free audit</a>
+      <a class="btn btn-ghost" href="tel:+15627456595">Call or text (562) 745-6595</a>
+      <a class="btn btn-ghost" id="signup" href="mailto:cristal@dfyai.online?subject=I%20want%20to%20start%20ReviewRescue%20(%24149%2Fmonth)&body=Business%20name%3A%0AGoogle%20listing%20link%3A%0APlease%20send%20me%20the%20signup%20link.">Subscribe — $149/month</a>
+    </div>
+    <p class="fineprint">
+      Prefer to talk first? Text the number and say "review audit" — you'll get a human, not a bot.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="margin-bottom:14px"><span class="dot"></span><span>ReviewRescue<small>by DFYAI Solutions · Long Beach, CA</small></span></div>
+    <p style="max-width:620px">
+      Google review replies, Google Business Profile posts and review requests for local businesses.
+      Free audit first, $149 a month after that, cancel any time.
+    </p>
+    <p>
+      <a href="mailto:cristal@dfyai.online">cristal@dfyai.online</a> ·
+      <a href="tel:+15627456595">(562) 745-6595</a> ·
+      <a href="https://dfyai.online">dfyai.online</a>
+    </p>
+    <p style="font-size:13px;opacity:.75">
+      We never offer money, discounts or gifts for reviews, and we never write reviews for customers.
+      Reviews shown or quoted in outreach come from public Google listings and are verified before we
+      mention a number.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
